@@ -1,0 +1,194 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>前端实现登录拼图验证 | 子夕·若晨</title><meta name="author" content="子夕·若晨"><meta name="copyright" content="子夕·若晨"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="实现原理我们只需要一张图作为我们的拼接素材，我们再单独弄一个盒子，然后移动它，到我们的指定位置，到达指定范围内即验证通过，反之验证未通过。 效果图 完整代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端实现登录拼图验证">
+<meta property="og:url" content="http://example.com/2023/08/13/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E6%8B%BC%E5%9B%BE%E9%AA%8C%E8%AF%81/index.html">
+<meta property="og:site_name" content="子夕·若晨">
+<meta property="og:description" content="实现原理我们只需要一张图作为我们的拼接素材，我们再单独弄一个盒子，然后移动它，到我们的指定位置，到达指定范围内即验证通过，反之验证未通过。 效果图 完整代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2023/08/09/pPe8nSJ.jpg">
+<meta property="article:published_time" content="2023-08-13T10:30:00.000Z">
+<meta property="article:modified_time" content="2023-08-13T10:39:24.081Z">
+<meta property="article:author" content="子夕·若晨">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2023/08/09/pPe8nSJ.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/08/13/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E6%8B%BC%E5%9B%BE%E9%AA%8C%E8%AF%81/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '前端实现登录拼图验证',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-13 18:39:24'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/userCss.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/header.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s1.ax1x.com/2023/08/09/pPe8nSJ.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="子夕·若晨"><span class="site-name">子夕·若晨</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">前端实现登录拼图验证</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-13T10:30:00.000Z" title="发表于 2023-08-13 18:30:00">2023-08-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-13T10:39:24.081Z" title="更新于 2023-08-13 18:39:24">2023-08-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="前端实现登录拼图验证"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><p>我们只需要一张图作为我们的拼接素材，我们再单独弄一个盒子，然后移动它，到我们的指定位置，到达指定范围内即验证通过，反之验证未通过。</p>
+<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><p><a target="_blank" rel="noopener" href="https://imgse.com/i/pPKtRxK"><img src="https://s1.ax1x.com/2023/08/13/pPKtRxK.png" alt="pPKtRxK.png"></a></p>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="variable constant_">DOCTYPE</span> html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;drag&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        *&#123;</span><br><span class="line">            margin: 0;</span><br><span class="line">            padding: 0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        body&#123;</span><br><span class="line">            padding: 20px;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /* 图形拼图验证码 */</span><br><span class="line">        .check&#123;</span><br><span class="line">            width: 400px;</span><br><span class="line">            height: 300px;</span><br><span class="line">            background-repeat: no-repeat;</span><br><span class="line">            background-size: 100% 100%;</span><br><span class="line">            background-image: url(https://img0.baidu.com/it/u=2028084904,3939052004&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=889&amp;h=500);</span><br><span class="line">            position: relative;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        .check::before&#123;</span><br><span class="line">            content: &#x27;&#x27;;</span><br><span class="line">            width: 50px;</span><br><span class="line">            height: 50px;</span><br><span class="line">            background: rgba(0, 0, 0, 0.5);</span><br><span class="line">            border: 1px solid #fff;</span><br><span class="line">            position: absolute;</span><br><span class="line">            top: 100px;</span><br><span class="line">            left: 280px;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        .check-child&#123;</span><br><span class="line">            content: &#x27;&#x27;;</span><br><span class="line">            width: 50px;</span><br><span class="line">            height: 50px;</span><br><span class="line">            border: 1px solid #fff;</span><br><span class="line">            background-image: inherit;</span><br><span class="line">            background-repeat: inherit;</span><br><span class="line">            background-size: 400px 300px;</span><br><span class="line">            background-position: -280px -100px;</span><br><span class="line">            position: absolute;</span><br><span class="line">            top: 100px;</span><br><span class="line">            left: 0;</span><br><span class="line">        &#125;</span><br><span class="line">        /* 拖动条 */</span><br><span class="line">        .drag&#123;</span><br><span class="line">            width: 400px;</span><br><span class="line">            height: 50px;</span><br><span class="line">            background-color: #e3e3e3;</span><br><span class="line">            margin-top: 10px;</span><br><span class="line">            position: relative;</span><br><span class="line">        &#125;</span><br><span class="line">        /* 可拖动的盒子 */</span><br><span class="line">        .drag-child&#123;</span><br><span class="line">            width: 50px;</span><br><span class="line">            height: 50px;</span><br><span class="line">            background-color: aquamarine;</span><br><span class="line">            z-index: 10;</span><br><span class="line">            position: absolute;</span><br><span class="line">            top: 0;</span><br><span class="line">            left: 0;</span><br><span class="line">        &#125;</span><br><span class="line">        /* 提示文字说明 */</span><br><span class="line">        .drag-tips&#123;</span><br><span class="line">            display: flex;</span><br><span class="line">            align-items: center;</span><br><span class="line">            justify-content: end;</span><br><span class="line">            width: 95%;</span><br><span class="line">            height: 100%;</span><br><span class="line">            margin: 0 auto;</span><br><span class="line">            font-size: 12px;</span><br><span class="line">            color: #8a8a8a;</span><br><span class="line">            user-select: none;</span><br><span class="line">            z-index: 1;</span><br><span class="line">            position: absolute;</span><br><span class="line">            top: 0;</span><br><span class="line">            left: 0;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @keyframes move &#123;</span><br><span class="line">            to &#123;</span><br><span class="line">                transform: translateX(0);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 图形校验区域 --&gt;</span><br><span class="line">    &lt;div class=&quot;check&quot;&gt;</span><br><span class="line">        &lt;!-- 被校验区域 --&gt;</span><br><span class="line">        &lt;div class=&quot;check-child&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;!-- 拖动条 --&gt;</span><br><span class="line">    &lt;div class=&quot;drag&quot;&gt;</span><br><span class="line">        &lt;!-- 操作说明 --&gt;</span><br><span class="line">        &lt;div class=&quot;drag-tips&quot;&gt;</span><br><span class="line">            &lt;span&gt;按住左边按钮向右拖动完成上方图像验证&lt;/span&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;!-- 可拖动的盒子 --&gt;</span><br><span class="line">        &lt;div class=&quot;drag-child&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    // 获取元素实例</span><br><span class="line">    const drag = document.querySelector(&#x27;.drag-child&#x27;)</span><br><span class="line"></span><br><span class="line">    // 图形被校验区域</span><br><span class="line">    const check = document.querySelector(&#x27;.check-child&#x27;)</span><br><span class="line"></span><br><span class="line">    // 通过校验回调</span><br><span class="line">    const success = () =&gt; &#123;</span><br><span class="line">        console.log(&#x27;通过校验&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 声明鼠标按下事件</span><br><span class="line">    const dragMouseDown = event =&gt; &#123;</span><br><span class="line">        // 添加鼠标移动事件</span><br><span class="line">        document.addEventListener(&#x27;mousemove&#x27;, dragMouseMove)</span><br><span class="line">    &#125;</span><br><span class="line">    // 监听鼠标移动事件</span><br><span class="line">    const dragMouseMove = event =&gt; &#123;</span><br><span class="line">        // 获取当前 x 轴坐标</span><br><span class="line">        const &#123; pageX &#125;  = event</span><br><span class="line">        if(pageX &lt; 0 || pageX &gt; 350)&#123;</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">        // 修改可移动盒子的 x 轴坐标</span><br><span class="line">        drag.style.transform = `translateX($&#123;pageX&#125;px)`</span><br><span class="line"></span><br><span class="line">        // 修改被校验区域坐标</span><br><span class="line">        check.style.transform = `translateX($&#123;pageX&#125;px)`</span><br><span class="line"></span><br><span class="line">        if(pageX &gt;= 278 &amp;&amp; pageX &lt;= 285)&#123;</span><br><span class="line">            // 执行回调</span><br><span class="line">            success()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 结束鼠标监听事件</span><br><span class="line">    const dragMouseUP = event =&gt; &#123;</span><br><span class="line">        // 移除鼠标移动事件</span><br><span class="line">        document.removeEventListener(&#x27;mousemove&#x27;, dragMouseMove)</span><br><span class="line"></span><br><span class="line">        // 获取当前 x 轴坐标</span><br><span class="line">        const &#123; pageX &#125; = event</span><br><span class="line"></span><br><span class="line">        if(pageX &lt; 278 || pageX &gt; 285)&#123;</span><br><span class="line">            // 修改可移动盒子的 x 轴坐标</span><br><span class="line">            drag.style.animation = &#x27;move 0.5s ease-in-out&#x27;</span><br><span class="line">            // 修改被校验区域坐标</span><br><span class="line">            check.style.animation = &#x27;move 0.5s ease-in-out&#x27;</span><br><span class="line"></span><br><span class="line">            // 动画结束监听回调</span><br><span class="line">            const animationEnd = ()=&gt;&#123;</span><br><span class="line">                // 修改可移动盒子的 x 轴坐标</span><br><span class="line">                drag.style.transform = `translateX($&#123;0&#125;px)`</span><br><span class="line">                // 修改被校验区域坐标</span><br><span class="line">                check.style.transform = `translateX($&#123;0&#125;px)`</span><br><span class="line"></span><br><span class="line">                // 清除动画属性</span><br><span class="line">                drag.style.animation = &#x27;&#x27;</span><br><span class="line">                check.style.animation = &#x27;&#x27;</span><br><span class="line">                // 移出动画结束监听</span><br><span class="line">                document.removeEventListener(&quot;animationend&quot;, animationEnd)</span><br><span class="line">            &#125;</span><br><span class="line">            // 添加动画结束监听</span><br><span class="line">            document.addEventListener(&quot;animationend&quot;, animationEnd)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 添加鼠标按下事件</span><br><span class="line">    document.addEventListener(&#x27;mousedown&#x27;, dragMouseDown)</span><br><span class="line">    // 添加鼠标弹起事件</span><br><span class="line">    document.addEventListener(&#x27;mouseup&#x27;, dragMouseUP)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">子夕·若晨</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/08/13/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E6%8B%BC%E5%9B%BE%E9%AA%8C%E8%AF%81/">http://example.com/2023/08/13/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E6%8B%BC%E5%9B%BE%E9%AA%8C%E8%AF%81/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">子夕·若晨</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://s1.ax1x.com/2023/08/09/pPe8nSJ.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/08/10/%E5%BF%BD%E8%80%8C%E5%B7%B2%E7%A7%8B/" title="世间美好，都与你有关"><img class="cover" src="https://s1.ax1x.com/2023/08/09/pPe8ul9.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">世间美好，都与你有关</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/header.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">子夕·若晨</div><div class="author-info__description">永远有告别，永远有期待</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/caizhuangzhuang.github.io/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:III0201@163.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">个人测试阶段</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">实现原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="toc-number">2.</span> <span class="toc-text">效果图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">完整代码</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/08/13/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E6%8B%BC%E5%9B%BE%E9%AA%8C%E8%AF%81/" title="前端实现登录拼图验证"><img src="https://s1.ax1x.com/2023/08/09/pPe8nSJ.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端实现登录拼图验证"/></a><div class="content"><a class="title" href="/2023/08/13/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E6%8B%BC%E5%9B%BE%E9%AA%8C%E8%AF%81/" title="前端实现登录拼图验证">前端实现登录拼图验证</a><time datetime="2023-08-13T10:30:00.000Z" title="发表于 2023-08-13 18:30:00">2023-08-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/10/%E5%BF%BD%E8%80%8C%E5%B7%B2%E7%A7%8B/" title="世间美好，都与你有关"><img src="https://s1.ax1x.com/2023/08/09/pPe8ul9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="世间美好，都与你有关"/></a><div class="content"><a class="title" href="/2023/08/10/%E5%BF%BD%E8%80%8C%E5%B7%B2%E7%A7%8B/" title="世间美好，都与你有关">世间美好，都与你有关</a><time datetime="2023-08-10T13:51:50.000Z" title="发表于 2023-08-10 21:51:50">2023-08-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/09/React%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%81%9A%E6%96%87%E4%BB%B6%E5%AF%BC%E5%87%BA/" title="React导出excel表格"><img src="https://s1.ax1x.com/2023/08/09/pPe8nSJ.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="React导出excel表格"/></a><div class="content"><a class="title" href="/2023/08/09/React%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%81%9A%E6%96%87%E4%BB%B6%E5%AF%BC%E5%87%BA/" title="React导出excel表格">React导出excel表格</a><time datetime="2023-08-09T14:37:32.000Z" title="发表于 2023-08-09 22:37:32">2023-08-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/08/Js%E6%95%B0%E7%BB%84%E8%BF%87%E6%BB%A4%EF%BC%9A%E7%AE%80%E5%8D%95%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%A4%9A%E6%9D%A1%E4%BB%B6%E5%A4%8D%E6%9D%82%E7%AD%9B%E9%80%89/" title="Js数组过滤：简单————&gt;多条件复杂筛选"><img src="https://s1.ax1x.com/2023/08/09/pPe8MO1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Js数组过滤：简单————&gt;多条件复杂筛选"/></a><div class="content"><a class="title" href="/2023/08/08/Js%E6%95%B0%E7%BB%84%E8%BF%87%E6%BB%A4%EF%BC%9A%E7%AE%80%E5%8D%95%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%A4%9A%E6%9D%A1%E4%BB%B6%E5%A4%8D%E6%9D%82%E7%AD%9B%E9%80%89/" title="Js数组过滤：简单————&gt;多条件复杂筛选">Js数组过滤：简单————&gt;多条件复杂筛选</a><time datetime="2023-08-08T13:05:10.000Z" title="发表于 2023-08-08 21:05:10">2023-08-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/07/hello-world/" title="Hello World"><img src="https://s1.ax1x.com/2023/08/09/pPe8KyR.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2023/08/07/hello-world/" title="Hello World">Hello World</a><time datetime="2023-08-07T14:09:32.866Z" title="发表于 2023-08-07 22:09:32">2023-08-07</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s1.ax1x.com/2023/08/09/pPe8nSJ.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 子夕·若晨</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '6hoYLCXkvnCiVyulLxjn1bU1-gzGzoHsz',
+      appKey: 'bdYiPSSPihUaU6qXyaxpHY7H',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
